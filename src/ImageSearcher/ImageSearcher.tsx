@@ -15,7 +15,7 @@ interface IPhotos {
     pages: number;
     perpage: number;
     total: number;
-    photo: IPhoto;
+    photo: IPhoto[];
   };
 }
 
@@ -145,7 +145,22 @@ function ImageSearcher() {
         </button>
       </div>
 
-      <div>{JSON.stringify(state.data)}</div>
+      <div>
+        {state.data.map((photos) => {
+          return (photos?.photos?.photo || []).map(
+            ({ farm, server, id, secret }) => {
+              // http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg
+              return (
+                <img
+                  key={id}
+                  src={`http://farm${farm}.static.flickr.com/${server}/${id}_${secret}.jpg`}
+                  alt={id}
+                />
+              );
+            }
+          );
+        })}
+      </div>
     </>
   );
 }
