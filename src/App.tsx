@@ -1,10 +1,11 @@
 import GlobalStyles from "./GlobalStyles";
+import ImageSearcher from "./ImageSearcher";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <h1>Hello World</h1>
+      <ImageSearcher />
     </>
   );
 }
