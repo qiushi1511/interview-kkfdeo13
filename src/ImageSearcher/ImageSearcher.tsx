@@ -1,4 +1,7 @@
 import React from "react";
+import styled from "styled-components";
+
+// Functional
 
 interface IState {
   keyword: string;
@@ -111,6 +114,26 @@ function useSearcher() {
   };
 }
 
+// View
+
+const ImageWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  > div {
+    flex: 1 1 25%;
+    width: 25%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > img {
+      max-width: 100%;
+    }
+  }
+`;
+
 function ImageSearcher() {
   const { state, actions } = useSearcher();
 
@@ -145,22 +168,23 @@ function ImageSearcher() {
         </button>
       </div>
 
-      <div>
+      <ImageWrapper>
         {state.data.map((photos) => {
           return (photos?.photos?.photo || []).map(
             ({ farm, server, id, secret }) => {
               // http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg
               return (
-                <img
-                  key={id}
-                  src={`http://farm${farm}.static.flickr.com/${server}/${id}_${secret}.jpg`}
-                  alt={id}
-                />
+                <div key={id}>
+                  <img
+                    src={`http://farm${farm}.static.flickr.com/${server}/${id}_${secret}.jpg`}
+                    alt={id}
+                  />
+                </div>
               );
             }
           );
         })}
-      </div>
+      </ImageWrapper>
     </>
   );
 }
